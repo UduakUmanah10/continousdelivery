@@ -1,25 +1,28 @@
+name: AndroidBuild
+
 on:
-  push:
-    branches: [ master ]
+  push :
+    branches :
+      [ master ]
+  pull_request :
+    [master]
 
 jobs:
-
-  test:
-    name: Unit tests
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses : actions/checkout@v4.1.0
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v3.13.0
         with:
-          distribution: 'temurin'
-          java-version: 17
-          cache: 'gradle'
+          distribution: 'adopt'
+          java-version: '17'
 
       - name: Grand execute permissions to gradlew
         run: chmod +x gradlew
 
       - name: Run unit tests
-        run: ./gradlew testDebug
+        run: ./gradlew build
